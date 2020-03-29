@@ -7,7 +7,6 @@ import java.util.Objects;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.cep.apicep.dto.CepDto;
+import com.cep.apicep.exception.ErroConsultaViaCepException;
+import com.cep.apicep.exception.InvalidPathVariableException;
 import com.cep.apicep.model.Cep;
 import com.cep.apicep.service.CepService;
 
@@ -29,6 +30,10 @@ public class CepController {
 	@Transactional
 	public ResponseEntity<CepDto> obterCep(@PathVariable String cep, 
 			UriComponentsBuilder uriBuilder) {
+		
+		if (Objects.equals(cep, null) || cep.length()!=8) {
+			throw new InvalidPathVariableException("Cep inválido");
+		}
 	
 		Cep objCep = cepService.obterCep(cep);
 		
@@ -48,7 +53,7 @@ public class CepController {
 			return ResponseEntity.notFound().build();
 			
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			throw new ErroConsultaViaCepException(e.getMessage());
 		}		
 	}
 	
