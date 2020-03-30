@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URISyntaxException;
 
-import javax.validation.constraints.AssertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -52,12 +51,7 @@ class ApiCepApplicationTests {
 		} catch (HttpClientErrorException | URISyntaxException e) {
 			thrown = true;
 		}
-		assertTrue(thrown);
-		
-	}
-
-	private void assertTrue(Boolean thrown) {
-		// TODO Auto-generated method stub
+		assertThat(thrown).isTrue();
 		
 	}
 
