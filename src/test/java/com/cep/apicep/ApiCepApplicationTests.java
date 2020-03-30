@@ -38,8 +38,7 @@ class ApiCepApplicationTests {
 			
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	@Test
@@ -51,8 +50,7 @@ class ApiCepApplicationTests {
 		} catch (HttpClientErrorException | URISyntaxException e) {
 			thrown = true;
 		}
-		assertThat(thrown).isTrue();
-		
+		assertThat(thrown).isTrue();		
 	}
 
 }

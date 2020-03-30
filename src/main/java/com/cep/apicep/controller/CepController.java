@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.cep.apicep.dto.CepDto;
 import com.cep.apicep.exception.ErroConsultaViaCepException;
+import com.cep.apicep.exception.ErroParametroNaoInformadoException;
 import com.cep.apicep.exception.InvalidPathVariableException;
 import com.cep.apicep.model.Cep;
 import com.cep.apicep.service.CepService;
@@ -64,7 +65,7 @@ public class CepController {
 		
 		if (ibge == null) {
 			
-			return ResponseEntity.badRequest().build();
+			throw new ErroParametroNaoInformadoException("É necessário informar o ibge para consulta");
 		
 		} else if (uf == null) {
 			
